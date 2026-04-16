@@ -1,11 +1,13 @@
 # pip install openai-whisper
+# pip install ollama
 #python -m pip install torch torchvision torchaudio  
 import whisper
 import os
 import torch
 import shutil
 import subprocess
-
+import ollama
+from generate_caption import generate_caption
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = whisper.load_model("medium").to(device)
@@ -33,7 +35,8 @@ def transcribe_audio(file_path: str) -> dict:
             "error": str(e),
             "status": "failed"
         }
-
+    
+   
 if __name__ == "__main__":
     test_file = r"C:\Users\nanci\Desktop\caption-generating-project\nlp\audio\test_audio.mp3"
     print(test_file)
@@ -43,7 +46,9 @@ if __name__ == "__main__":
     result = transcribe_audio(test_file)
     print(f"\nStatus: {result.get('status')}")
 
+
     if result.get("status") == "success":
-        print(f"Transcript:\n{result.get('transcript')}")
+        print(generate_caption(result.get("transcript", ""), model_name="llama3.2"))
     else:
         print(f"Eroare: {result.get('error')}")
+
