@@ -8,11 +8,9 @@ import { generateFromText, generateFromVideo } from "@/services/appService";
 
 interface Props {
   mode: "text" | "video";
-  title: string;
-  subtitle: string;
 }
 
-export function GeneratorPage({ mode, title, subtitle }: Props) {
+export function GeneratorPage({ mode }: Props) {
   const {
     textInput, videoFile, platforms, tone,
     setResult, setLoading, setError, loading,
@@ -46,31 +44,32 @@ export function GeneratorPage({ mode, title, subtitle }: Props) {
   };
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-10">
-      <header className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent mb-2">
-          {mode === "text" ? "Mod articol" : "Mod video"}
-        </p>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">{title}</h1>
-        <p className="mt-2 text-muted-foreground">{subtitle}</p>
-      </header>
+    <div className="mx-auto max-w-2xl px-5 py-10">
+      <div className="mb-7">
+        <span className="text-xs text-muted-foreground uppercase tracking-wide">
+          {mode === "text" ? "Sursa: text" : "Sursa: video"}
+        </span>
+        <h1 className="text-2xl font-bold text-foreground mt-1">
+          {mode === "text" ? "Din articol in caption-uri" : "Din video in caption-uri"}
+        </h1>
+      </div>
 
-      <div className="space-y-6 rounded-2xl bg-gradient-card border border-border/60 p-6 shadow-card">
+      <div className="space-y-5 rounded-lg border border-border bg-card p-5">
         {mode === "text" ? <TextInput /> : <VideoUpload />}
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
           <PlatformSelector />
           <ToneSelector />
         </div>
         <button
           onClick={handleGenerate}
           disabled={loading}
-          className="w-full rounded-xl bg-gradient-hero px-4 py-3 text-sm font-semibold text-primary-foreground shadow-glow hover:opacity-90 transition disabled:opacity-50"
+          className="w-full rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-40"
         >
-          {loading ? "Se genereaza..." : "✨ Genereaza"}
+          {loading ? "Se genereaza..." : "Genereaza"}
         </button>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-6">
         <ResultsView />
       </div>
     </div>

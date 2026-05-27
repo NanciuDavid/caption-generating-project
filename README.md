@@ -95,14 +95,7 @@ Frontend-ul va oferi interfata prin care utilizatorul interactioneaza cu aplicat
 - [ ] Afisarea starilor de incarcare si a mesajelor de eroare.
 - [ ] Asigurarea unui design simplu, clar si responsive.
 
-#### Posibile imbunatatiri
-- [ ] Istoric de generari anterioare.
-- [ ] Export al rezultatelor.
-- [ ] Interfata separata pentru fiecare platforma.
-- [ ] Compararea mai multor variante de caption in paralel.
 
-## 7. Rol propus in echipa
-Partea de AI va include in special componenta de `NLP si procesare`, iar aceasta poate fi asumata ca responsabilitate principala personala.
 
 ### Responsabilitati asumate pe partea de AI
 - [ ] definirea pipeline-ului de procesare pentru text si video
@@ -133,7 +126,34 @@ Partea de AI va include in special componenta de `NLP si procesare`, iar aceasta
 ## 10. Rezultate asteptate
 La finalul proiectului, aplicatia trebuie sa poata primi un articol sau un video si sa returneze automat caption-uri si hashtag-uri relevante, adaptate platformei alese, intr-o forma clara si usor de utilizat.
 
-## 11. Observatii pentru colaborare pe GitHub
+## 11. Plan de implementare backend, Whisper si integrare frontend
+
+### 11.1 Backend
+- Crearea unui backend in Python cu FastAPI, deoarece se potriveste cu logica NLP existenta.
+- Definirea a doua endpoint-uri principale: unul pentru text si unul pentru upload video.
+- Standardizarea unui format unic de raspuns pentru summary, caption-uri, hashtag-uri, transcript si erori.
+- Validarea input-ului pentru text gol, fisiere invalide si valori incorecte pentru platforma sau ton.
+
+### 11.2 Integrare Whisper
+- Mutarea logicii de transcriere din scriptul local intr-un serviciu backend dedicat.
+- Extractia audio din video, daca este necesara, inainte de transcriere.
+- Incarcarea modelului Whisper o singura data si reutilizarea lui pentru toate cererile.
+- Trimiterea transcriptului mai departe catre modulul de sumarizare si generare caption-uri.
+
+### 11.3 Integrare cu frontend-ul
+- Inlocuirea modului mock din frontend cu apeluri reale catre backend.
+- Pastrarea fluxului existent din interfata pentru text, video, platforme, ton si afisarea rezultatelor.
+- Alinierea tipurilor din frontend cu schema de raspuns a backend-ului.
+- Tratarea clara a starilor de incarcare si a erorilor pentru procesarea video, care poate dura mai mult.
+
+### 11.4 Ordinea de implementare
+1. Backend API si schema de raspuns.
+2. Endpoint-ul de transcriere video cu Whisper.
+3. Endpoint-ul pentru text si generarea caption-urilor.
+4. Conectarea frontend-ului la backend.
+5. Testare end-to-end pentru un exemplu de text si unul de video.
+
+## 12. Observatii pentru colaborare pe GitHub
 - [ ] Fiecare membru actualizeaza sectiunea corespunzatoare componentei sale.
 - [ ] Task-urile se bifeaza pe masura ce sunt finalizate.
 - [ ] README-ul poate fi extins cu instructiuni de rulare, arhitectura si contributii dupa stabilirea stack-ului final.

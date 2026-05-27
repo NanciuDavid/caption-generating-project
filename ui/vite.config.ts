@@ -12,4 +12,15 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      // Redirecționează cererile /api catre backend-ul FastAPI in modul de dezvoltare
+      proxy: {
+        "/api": {
+          target: "http://localhost:8000",
+          changeOrigin: true,
+        },
+      },
+    },
+  },
 });

@@ -3,15 +3,22 @@ import { useApp } from "@/context/AppContext";
 export function TextInput() {
   const { textInput, setTextInput } = useApp();
   return (
-    <div className="space-y-2">
-      <label className="block text-sm font-semibold text-foreground">Articol / text sursa</label>
+    <div className="space-y-1.5">
+      <label className="block text-sm font-medium text-foreground">Articol sau text sursa</label>
       <textarea
         value={textInput}
         onChange={(e) => setTextInput(e.target.value)}
-        placeholder="Lipeste aici articolul..."
+        placeholder="Lipeste textul aici..."
         rows={7}
-        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+        className="
+          w-full rounded-xl glass-sm px-4 py-3 text-sm text-foreground
+          placeholder:text-muted-foreground/60 focus:outline-none
+          focus:ring-2 focus:ring-primary/25 resize-none leading-relaxed
+        "
       />
+      {textInput.length > 0 && (
+        <p className="text-right text-xs text-muted-foreground">{textInput.length} caractere</p>
+      )}
     </div>
   );
 }

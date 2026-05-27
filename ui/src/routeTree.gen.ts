@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VideoRouteImport } from './routes/video'
+import { Route as ThreadRouteImport } from './routes/thread'
 import { Route as TextRouteImport } from './routes/text'
+import { Route as HookRouteImport } from './routes/hook'
+import { Route as BioRouteImport } from './routes/bio'
 import { Route as IndexRouteImport } from './routes/index'
 
 const VideoRoute = VideoRouteImport.update({
@@ -18,9 +21,24 @@ const VideoRoute = VideoRouteImport.update({
   path: '/video',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ThreadRoute = ThreadRouteImport.update({
+  id: '/thread',
+  path: '/thread',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TextRoute = TextRouteImport.update({
   id: '/text',
   path: '/text',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HookRoute = HookRouteImport.update({
+  id: '/hook',
+  path: '/hook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BioRoute = BioRouteImport.update({
+  id: '/bio',
+  path: '/bio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -31,31 +49,43 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bio': typeof BioRoute
+  '/hook': typeof HookRoute
   '/text': typeof TextRoute
+  '/thread': typeof ThreadRoute
   '/video': typeof VideoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bio': typeof BioRoute
+  '/hook': typeof HookRoute
   '/text': typeof TextRoute
+  '/thread': typeof ThreadRoute
   '/video': typeof VideoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bio': typeof BioRoute
+  '/hook': typeof HookRoute
   '/text': typeof TextRoute
+  '/thread': typeof ThreadRoute
   '/video': typeof VideoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/text' | '/video'
+  fullPaths: '/' | '/bio' | '/hook' | '/text' | '/thread' | '/video'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/text' | '/video'
-  id: '__root__' | '/' | '/text' | '/video'
+  to: '/' | '/bio' | '/hook' | '/text' | '/thread' | '/video'
+  id: '__root__' | '/' | '/bio' | '/hook' | '/text' | '/thread' | '/video'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BioRoute: typeof BioRoute
+  HookRoute: typeof HookRoute
   TextRoute: typeof TextRoute
+  ThreadRoute: typeof ThreadRoute
   VideoRoute: typeof VideoRoute
 }
 
@@ -68,11 +98,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VideoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/thread': {
+      id: '/thread'
+      path: '/thread'
+      fullPath: '/thread'
+      preLoaderRoute: typeof ThreadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/text': {
       id: '/text'
       path: '/text'
       fullPath: '/text'
       preLoaderRoute: typeof TextRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hook': {
+      id: '/hook'
+      path: '/hook'
+      fullPath: '/hook'
+      preLoaderRoute: typeof HookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bio': {
+      id: '/bio'
+      path: '/bio'
+      fullPath: '/bio'
+      preLoaderRoute: typeof BioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -87,7 +138,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BioRoute: BioRoute,
+  HookRoute: HookRoute,
   TextRoute: TextRoute,
+  ThreadRoute: ThreadRoute,
   VideoRoute: VideoRoute,
 }
 export const routeTree = rootRouteImport
